@@ -1,0 +1,190 @@
+Absolutely. I'll give you the FULL PROGRAMS for all 5 uploaded lab experiments, in separate sections so you can copy, practise, and execute them.
+
+I'll preserve the experiment titles, models, libraries, and main logic from your college lab records.
+
+Important: You uploaded EXP1, EXP2, EXP4, EXP5 and EXP6. EXP3 wasn't included in the uploads.
+
+Each program will include:
+- Complete Python code.
+- Required library installation commands.
+- How to execute it.
+- Sample input and expected output.
+EXPERIMENT 1 – OpenAI GPT API
+File name: exp1.py
+
+Installation:
+pip install openai
+
+
+Full program:
+from openai import OpenAIclient = OpenAI()description = input("Describe the function: ")try:    prompt = f"""Generate only valid Python code.Generate exactly one Python functionbased on this description:{description}Do not use markdown.Only return executable Python code."""    response = client.responses.create(        model="gpt-5.6-luna",        input=prompt    )    code = response.output_text    print("\n===== AI Generated Code =====\n")    print(code)except Exception as e:    print("\nOpenAI API is unavailable.")    print("Reason:", e)    print("Switching to Offline Function Generator...\n")    d = description.lower()    if "add" in d:        code = """def add(a, b):    return a + b"""    elif "subtract" in d:        code = """def subtract(a, b):    return a - b"""    elif "multiply" in d:        code = """def multiply(a, b):    return a * b"""    elif "divide" in d:        code = """def divide(a, b):    if b == 0:        raise ValueError("Cannot divide by zero")    return a / b"""    elif "square" in d:        code = """def square(x):
+
+
+
+Note: The model name printed in your PDF is retained. If the API rejects it, replace it with a model available to your API account. Set OPENAI_API_KEY before running. The offline fallback works without the API.
+
+Remember the flow: Input → Prompt → GPT → Code → Exec → Test.
+
+EXPERIMENT 2 – GAN for Code Generation
+File name: exp2.py
+
+Installation:
+pip install ollama scikit-learn
+
+
+You also need Ollama installed and the CodeLlama model downloaded:
+ollama pull codellama:7b
+
+
+Full program:
+import ollamafrom sklearn.feature_extraction.text import TfidfVectorizerfrom sklearn.linear_model import LogisticRegression# Real Python code samplesreal_code_samples = ["""def bubble_sort(arr):    n = len(arr)    for i in range(n):        for j in range(0, n-i-1):            if arr[j] > arr[j+1]:                arr[j], arr[j+1] = arr[j+1], arr[j]    return arr""","""def insertion_sort(arr):    for i in range(1, len(arr)):        key = arr[i]        j = i-1        while j >= 0 and arr[j] > key:            arr[j+1] = arr[j]            j -= 1        arr[j+1] = key    return arr""",
+
+
+
+Remember the flow:
+CodeLlama – Generator
+
+Generates Python code
+
+TF-IDF
+
+Converts code into numerical features
+
+Logistic Regression – Discriminator
+
+Classifies real and generated code
+
+Prediction and Confidence
+
+Important: This is a simplified GAN-style architecture, not a full adversarial GAN training loop. The labels are 1 = Real, 0 = Generated.
+
+EXPERIMENT 4 – Code Completion Using GPT-2
+File name: exp4.py
+
+Installation:
+pip install transformers torch gradio
+
+
+Full program:
+import torchfrom transformers import (    AutoTokenizer,    AutoModelForCausalLM)import gradio as grprint("URK23CS8003")model_name = "gpt2"print("Loading GPT-2 model...")# Load tokenizertokenizer = AutoTokenizer.from_pretrained(    model_name)# Load modelmodel = AutoModelForCausalLM.from_pretrained(    model_name)model.eval()print("GPT-2 loaded successfully!")# Code completion functiondef get_completion_only(prompt, max_new_tokens=50):
+
+
+
+Remember these important lines:
+Code	Purpose
+AutoTokenizer	Converts text into tokens
+AutoModelForCausalLM	Loads GPT-2
+model.eval()	Sets evaluation mode
+model.generate()	Generates continuation
+tokenizer.decode()	Converts tokens into text
+gr.Interface()	Creates web interface
+demo.launch()	Starts the application
+
+Execution:
+python exp4.py
+
+
+Open the local Gradio URL displayed in the terminal.
+
+EXPERIMENT 5 – GPT-Neo Pseudocode to Python Code
+File name: exp5.py
+
+Installation:
+pip install transformers torch
+
+
+This experiment converts five pseudocode problems into Python functions:
+1. Find Maximum
+2. Check Even Number
+3. Calculate Factorial
+4. Calculate Average
+5. Reverse a String
+Full program:
+    find_maximum = namespace["find_maximum"]    print("\nUsing GPT-Neo generated find_maximum()")else:    find_maximum = fallback_find_maximum    print("\nUsing fallback find_maximum()")if is_valid_function(    "check_even",    [        ((4,), True),        ((7,), False),        ((0,), True)    ]):    check_even = namespace["check_even"]    print("Using GPT-Neo generated check_even()")else:    check_even = fallback_check_even    print("Using fallback check_even()")if is_valid_function(    "calculate_factorial",    [        ((5,), 120),        ((0,), 1),        ((3,), 6)    ]):    calculate_factorial = namespace[        "calculate_factorial"    ]    print("Using GPT-Neo generated calculate_factorial()")else:    calculate_factorial = fallback_calculate_factorial    print("Using fallback calculate_factorial()")if is_valid_function(    "calculate_average",    [        (([10, 20, 30],), 20),        (([5, 10],), 7.5)
+
+
+
+Remember the flow:
+Pseudocode
+
+GPT-Neo
+
+Tokenization
+
+Python Code
+
+Exec()
+
+Validation
+
+Unit Testing
+
+
+Important memory points:
+- GPT-Neo model: EleutherAI/gpt-neo-125M
+- Tokenizer: AutoTokenizer
+- Model loader: AutoModelForCausalLM
+- Execute: exec()
+- Unit testing: unittest
+- Fallback: predefined Python functions.
+
+EXPERIMENT 6 – AI-Generated Code Quality and Correctness Evaluation Framework
+File name: exp6.py
+
+Installation:
+pip install pylint mypy pytest
+
+
+Full program:
+
+This version corrects the indentation and obvious OCR/typing errors in your PDF while preserving its evaluation logic.
+import astimport reimport sysimport tempfileimport subprocessimport osimport textwrap# AI-generated example codegenerated_code = """def add_numbers(a: int, b: int) -> int:    \"\"\"Return the sum of two numbers.\"\"\"    return a + b"""# Test cases with expected resultstest_cases = [    ((2, 3), 5),    ((10, 20), 30),    ((-2, 2), 0),    ((0, 0), 0)]# Syntax checking using Python ASTdef check_syntax(code):    try:        ast.parse(code)
+
+
+
+Remember EXP6 using this order:
+Concept	Meaning
+AST	Checks Python syntax
+Pylint	Checks code quality and style
+Mypy	Checks types
+Dynamic testing	Executes and checks results
+Documentation	Checks docstrings
+Score	Calculates marks out of 100
+Suggestions	Recommends improvements
+
+Note: Your record mentions Pytest in the experiment description, but its supplied program performs dynamic tests using its own test-case loop rather than actually calling Pytest. The code above preserves that program logic.
+6. How to execute all experiments
+Use these commands in your VS Code terminal or lab terminal.
+Experiment	Command
+EXP1	python exp1.py
+EXP2	python exp2.py
+EXP4	python exp4.py
+EXP5	python exp5.py
+EXP6	python exp6.py
+
+Important execution notes:
+- EXP1: Requires an OpenAI API key for online generation; offline fallback is included.
+- EXP2: Requires Ollama to be running with CodeLlama downloaded.
+- EXP4: Downloads GPT-2 the first time and launches Gradio.
+- EXP5: Downloads GPT-Neo the first time. Its generated functions may need fallback functions if generation is incorrect.
+- EXP6: Requires Pylint and Mypy. Run only trusted code because it uses dynamic execution.
+7. What I want you to memorise first
+The five experiments – one-line memory trick
+1. EXP1: OpenAI generates functions.
+2. EXP2: CodeLlama generates, Logistic Regression classifies.
+3. EXP4: GPT-2 completes code.
+4. EXP5: GPT-Neo converts pseudocode into Python.
+5. EXP6: Python checks code quality and correctness.
+
+Most important functions to remember
+input()exec()print()model.generate()tokenizer.decode()gr.Interface()unittest.TestCaseast.parse()subprocess.run()
+
+
+
+
+8. Let's prepare for your practical exam
+I suggest learning one complete program at a time. Don't try memorising all five simultaneously.
+
+Start with EXP1. Practise typing it without looking at the PDF, then execute it and check the output.
+
+I can also conduct a mock practical exam, giving you one experiment at a time and checking your code like an examiner.
